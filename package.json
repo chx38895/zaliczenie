@@ -1,0 +1,25 @@
+{
+  "name": "Zaliczenie",
+  "version": "1.0.0",
+  "description": "cokolwiek\r zmiana 2\r update online",
+  "main": "app.js",
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chx38895/zaliczenie.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chx38895/zaliczenie/issues"
+  },
+  "homepage": "https://github.com/chx38895/zaliczenie#readme",
+  "devDependencies": {
+    "jest": "^29.4.1",
+    "jest-environment-jsdom": "^29.4.1"
+  },
+  "type": "module"
+}
