@@ -1,0 +1,32 @@
+name: main
+run-name: main-pipeline
+on: [push]
+jobs:
+  run-unit-tests:
+    runs-on: ubuntu-latest
+    container:
+      image: node:16
+      env:
+        NODE_ENV: development
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: install dependencies
+        run: npm ci
+      - name: run tests
+        run: npm run test
+
+
+
+
+
+
+
+
+
+
+
+#build
+#test
+#accept
+#deploy
