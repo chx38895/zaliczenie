@@ -45,6 +45,34 @@ jobs:
         run: docker run -d -p 8080:8080 app:latest
       - name: run performance tests
         run: ab -n 1 http://localhost:8080/
+        
+  deploy-to-stage:
+    needs: run-performance-tests
+    runs-on: ubuntu-latest
+    environment:
+      name: stage
+    steps:
+      - name: download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: docker-image
+          path: .
+      - name: deploy to stage
+        run: echo "deploying to stage"
+        
+  deploy-to-prod:
+    needs: deploy-to-stage
+    runs-on: ubuntu-latest
+    environment:
+      name: prod
+    steps:
+      - name: download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: docker-image
+          path: .
+      - name: deploy to stage
+        run: echo "deploying to prod"
 
 
 
@@ -57,6 +85,6 @@ jobs:
 
 
 #build - done
-#test
+#test - done
 #accept
 #deploy
