@@ -5,7 +5,7 @@ let calculation = []
 let accumulativeCalculation
 
 
-export function calculate (button){
+function calculate (button){
     const value = button.textContent
     if (value === "CLEAR") {
         calculation = []
