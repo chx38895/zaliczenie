@@ -15,6 +15,21 @@ jobs:
         run: npm ci
       - name: run tests
         run: npm run test
+  build-image:
+    needs: run-unit-tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: build image
+        run: docker build -t app:latest .
+      - name: create a package calc
+        run: docker save app:latest | gzip > calc_artifact.tar.gz
+      - name: upload artefact
+        uses: actions/upload-artifact@v3
+        with:
+          name: docker-image
+          path: calc_artifact.tar.gz
 
 
 
@@ -26,7 +41,7 @@ jobs:
 
 
 
-#build
+#build - done
 #test
 #accept
 #deploy
