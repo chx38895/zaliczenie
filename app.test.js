@@ -1,4 +1,4 @@
-test('adds 1 + 2 to equal 3', () => {
+test('chcecks if 1=1', () => {
     expect(1).toBe(1);
   });
 
