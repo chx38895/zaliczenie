@@ -30,6 +30,21 @@ jobs:
         with:
           name: docker-image
           path: calc_artifact.tar.gz
+  run-performance-tests:
+    needs: build-image
+    runs-on: ubuntu-latest
+    steps:
+      - name: download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: docker-image
+          path: .
+      - name: unpack and load artefact to docker
+        run: docker load -i ./calc_artifact.tar.gz
+      - name: run app
+        run: docker run -d -p 8080:8080 app:latest
+      - name: run performance tests
+        run: ab -n 1 http://localhost:8080/
 
 
 
