@@ -57,7 +57,7 @@ jobs:
           name: docker-image
           path: .
       - name: unpack artifact
-        run: ls
+        run: tar -tfv ./calc_artifact.tar.gz
 #      - name: 'Deploy to Azure WebApp'
 #        uses: azure/webapps-deploy@v2
 #       with: 
