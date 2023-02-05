@@ -46,6 +46,9 @@ jobs:
       - name: run performance tests
         run: ab -n 1 http://localhost:8080/
   deploy:
+    needs: run-performance-tests
+    runs-on: ubuntu-latest
+    steps:
       - name: download artifact
         uses: actions/download-artifact@v3
         with:
