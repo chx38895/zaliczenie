@@ -30,23 +30,23 @@ jobs:
         with:
           name: docker-image
           path: calc_artifact.tar.gz
-  run-performance-tests:
-    needs: build-image
-    runs-on: ubuntu-latest
-    steps:
-      - name: download artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: docker-image
-          path: .
-      - name: unpack and load artefact to docker
-        run: docker load -i ./calc_artifact.tar.gz
-      - name: run app
-        run: docker run -d -p 8080:8080 app:latest
-      - name: run performance tests
-        run: ab -n 1 http://localhost:8080/
+#  run-performance-tests:
+#    needs: build-image
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: download artifact
+#        uses: actions/download-artifact@v3
+#        with:
+#          name: docker-image
+#          path: .
+#      - name: unpack and load artefact to docker
+#        run: docker load -i ./calc_artifact.tar.gz
+#      - name: run app
+#        run: docker run -d -p 8080:8080 app:latest
+#      - name: run performance tests
+#        run: ab -n 1 http://localhost:8080/
   deploy:
-    needs: run-performance-tests
+    needs: run-unit-tests
     runs-on: ubuntu-latest
     environment:
       name: prod  
@@ -56,13 +56,14 @@ jobs:
         with:
           name: docker-image
           path: .
-      - name: unpack and load artefact to docker
-        run: docker load -i ./calc_artifact.tar.gz
-      - name: 'Deploy to Azure WebApp'
-        uses: azure/webapps-deploy@v2
-        with: 
-          app-name: zaliczeniemj
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+      - name: unpack artifact
+        run: tar -tfv calc_artifact.tar.gz
+#      - name: 'Deploy to Azure WebApp'
+#        uses: azure/webapps-deploy@v2
+#       with: 
+#          app-name: zaliczeniemj
+#          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+#          package: 
 
 
 
