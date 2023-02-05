@@ -2,7 +2,6 @@ name: main
 run-name: main-pipeline
 on: [push]
 jobs:
-
   deploy:
     needs: build-image
     runs-on: ubuntu-latest 
