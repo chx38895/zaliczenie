@@ -13,7 +13,7 @@ jobs:
       - name: pack to folder
         run: |
           mkdir prod
-          mv * prod
+          mv Dockerfile README.md app.test.js index.js jest.config.js nowy package-lock.json package.json public prod
           ls
       - name: 'Deploy to Azure WebApp'
         uses: azure/webapps-deploy@v2
