@@ -2,68 +2,29 @@ name: main
 run-name: main-pipeline
 on: [push]
 jobs:
-  run-unit-tests:
-    runs-on: ubuntu-latest
-    container:
-      image: node:16
-      env:
-        NODE_ENV: development
-    steps:
-      - name: checkout
-        uses: actions/checkout@v3
-      - name: install dependencies
-        run: npm ci
-      - name: run tests
-        run: npm run test
-  build-image:
-    needs: run-unit-tests
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout
-        uses: actions/checkout@v3
-      - name: build image
-        run: docker build -t app:latest .
-      - name: create a package calc
-        run: docker save app:latest | gzip > calc_artifact.tar.gz
-      - name: upload artefact
-        uses: actions/upload-artifact@v3
-        with:
-          name: docker-image
-          path: calc_artifact.tar.gz
-#  run-performance-tests:
-#    needs: build-image
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: download artifact
-#        uses: actions/download-artifact@v3
-#        with:
-#          name: docker-image
-#          path: .
-#      - name: unpack and load artefact to docker
-#        run: docker load -i ./calc_artifact.tar.gz
-#      - name: run app
-#        run: docker run -d -p 8080:8080 app:latest
-#      - name: run performance tests
-#        run: ab -n 1 http://localhost:8080/
+
   deploy:
     needs: build-image
-    runs-on: ubuntu-latest
-    environment:
-      name: prod  
-    steps:
-      - name: download artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: docker-image
-          path: /
-      - name: unpack artifact
-        run: tar -tfv /calc_artifact.tar.gz
-#      - name: 'Deploy to Azure WebApp'
-#        uses: azure/webapps-deploy@v2
-#       with: 
-#          app-name: zaliczeniemj
-#          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-#          package: 
+    runs-on: ubuntu-latest 
+    - uses: actions/checkout@main
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 14.0
+    - name: npm install, build, and test
+      run: |
+        # Build and test the project, then
+        # deploy to Azure Web App.
+        npm install
+        npm run build --if-present
+        npm run test --if-present
+      working-directory: my-app-path
+    - name: 'Deploy to Azure WebApp'
+      uses: azure/webapps-deploy@v2
+      with: 
+        app-name: zaliczeniemj
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+        package: my-app-path
 
 
 
