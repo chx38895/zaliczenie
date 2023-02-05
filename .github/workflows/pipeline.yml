@@ -47,6 +47,7 @@ jobs:
         run: ab -n 1 http://localhost:8080/
   deploy:
     needs: run-performance test
+    runs-on: ubuntu-latest
     enviorement:
       name: prod
     steps:
