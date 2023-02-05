@@ -3,6 +3,8 @@ import path from "path"
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
+const port = process.env.PORT
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -14,4 +16,4 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "./public", "zaliczenie.html"));
 });
 
-app.listen(8080, () => console.log("listening on localhsot:8080"));
+app.listen(port, () => console.log("listening on localhsot:8080"));
