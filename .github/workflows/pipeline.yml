@@ -45,7 +45,7 @@ jobs:
         run: docker run -d -p 8080:8080 app:latest
       - name: run performance tests
         run: ab -n 1 http://localhost:8080/
-  deploy CI:
+  deploy:
     needs: run-performance-tests
     runs-on: ubuntu-latest
     environment:
