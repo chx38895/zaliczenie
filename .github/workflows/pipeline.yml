@@ -46,7 +46,7 @@ jobs:
 #      - name: run performance tests
 #        run: ab -n 1 http://localhost:8080/
   deploy:
-    needs: run-unit-tests
+    needs: build-image
     runs-on: ubuntu-latest
     environment:
       name: prod  
