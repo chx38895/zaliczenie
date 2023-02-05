@@ -1,15 +1,22 @@
-name: main
-run-name: main-pipeline
+name: JavaScript CI
+
 on: [push]
+
+env:
+  AZURE_WEBAPP_NAME: zaliczeniemj   # set this to your application's name
+  AZURE_WEBAPP_PACKAGE_PATH: 'my-app-path'      # set this to the path to your web app project, defaults to the repository root
+  NODE_VERSION: '14.x'                # set this to the node version to use
+
 jobs:
-  deploy:
-    needs: build-image
-    runs-on: ubuntu-latest 
+  build-and-deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    steps:
     - uses: actions/checkout@main
-    - name: Use Node.js
+    - name: Use Node.js ${{ env.NODE_VERSION }}
       uses: actions/setup-node@v1
       with:
-        node-version: 14.0
+        node-version: ${{ env.NODE_VERSION }}
     - name: npm install, build, and test
       run: |
         # Build and test the project, then
@@ -21,23 +28,6 @@ jobs:
     - name: 'Deploy to Azure WebApp'
       uses: azure/webapps-deploy@v2
       with: 
-        app-name: zaliczeniemj
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-        package: my-app-path
-
-
-
-
-
-
-
-
-
-
-
-
-
-#build - done
-#test - done
-#accept
-#deploy
+        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
