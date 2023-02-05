@@ -46,7 +46,7 @@ jobs:
       - name: run performance tests
         run: ab -n 1 http://localhost:8080/
   deploy:
-    needs: run-performance test
+    needs: run-performance-test
     runs-on: ubuntu-latest
     environment:
       name: prod
