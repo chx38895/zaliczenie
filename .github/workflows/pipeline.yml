@@ -55,9 +55,9 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: docker-image
-          path: .
+          path: /
       - name: unpack artifact
-        run: tar -tfv ./calc_artifact.tar.gz
+        run: tar -tfv /calc_artifact.tar.gz
 #      - name: 'Deploy to Azure WebApp'
 #        uses: azure/webapps-deploy@v2
 #       with: 
