@@ -47,9 +47,9 @@ jobs:
         run: ab -n 1 http://localhost:8080/
   deploy CI:
     needs: run-performance-tests
-      runs-on: ubuntu-latest
-      environment:
-        name: prod    
+    runs-on: ubuntu-latest
+    environment:
+      name: prod  
     steps:
     - uses: actions/checkout@main
     - name: Use Node.js
@@ -69,7 +69,7 @@ jobs:
       with: 
         app-name: calc
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-        
+
 
 
 
