@@ -10,8 +10,10 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
-      - name: ls
-        run: ls   
+      - name: pack to folder
+        run: |
+          mv * prod
+          ls
 #      - name: 'Deploy to Azure WebApp'
 #        uses: azure/webapps-deploy@v2
 #        with: 
