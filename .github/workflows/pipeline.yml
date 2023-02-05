@@ -48,7 +48,7 @@ jobs:
   deploy:
     needs: run-performance test
     runs-on: ubuntu-latest
-    enviorement:
+    environment:
       name: prod
     steps:
 #      - name: download artifact
