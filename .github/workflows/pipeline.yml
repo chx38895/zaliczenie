@@ -9,10 +9,12 @@ jobs:
       name: prod
     steps:
       - name: checkout
-        uses: actions/checkout@v3      
-      - name: 'Deploy to Azure WebApp'
-        uses: azure/webapps-deploy@v2
-        with: 
-          app-name: zaliczeniemj
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: .
+        uses: actions/checkout@v3
+      - name: ls
+        run: ls   
+#      - name: 'Deploy to Azure WebApp'
+#        uses: azure/webapps-deploy@v2
+#        with: 
+#          app-name: zaliczeniemj
+#          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+#          package: .
